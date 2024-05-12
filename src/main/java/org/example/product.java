@@ -12,7 +12,6 @@ private int id;
     private double price;
     private int stockQuantity;
 
-    // Constructor
     public product(int id, String name, String description, double price, int stockQuantity) {
         this.id = id;
         this.name = name;
@@ -21,7 +20,6 @@ private int id;
         this.stockQuantity = stockQuantity;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -62,7 +60,6 @@ private int id;
         this.stockQuantity = stockQuantity;
     }
 
-    // Method to update stock quantity
     public void updateStock(int quantity) {
         this.stockQuantity += quantity;
     }
