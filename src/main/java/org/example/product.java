@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class product {
 /*
     Atributos: ID, nombre, descripción, precio, cantidad en stock.
@@ -11,6 +14,7 @@ private int id;
     private String description;
     private double price;
     private int stockQuantity;
+    private Map<String, Double> promotions; // Mapa de promociones por nombre de promoción y descuento
 
     public product(int id, String name, String description, double price, int stockQuantity) {
         this.id = id;
@@ -18,6 +22,7 @@ private int id;
         this.description = description;
         this.price = price;
         this.stockQuantity = stockQuantity;
+        this.promotions = new HashMap<>();
     }
 
     public int getId() {
@@ -62,5 +67,21 @@ private int id;
 
     public void updateStock(int quantity) {
         this.stockQuantity += quantity;
+    }
+
+    public void addPromotion(String promotionName, double discount) {
+        promotions.put(promotionName, discount);
+    }
+
+    public boolean removePromotion(String promotionName) {
+        return promotions.remove(promotionName) != null;
+    }
+
+    public Map<String, Double> getPromotions() {
+        return promotions;
+    }
+
+    public boolean hasPromotion(String promotionName) {
+        return promotions.containsKey(promotionName);
     }
 }
