@@ -1,9 +1,46 @@
 package org.example;
 
+import java.util.Scanner;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+        /*
+        para crear nuevo usuario:
+                // Mapa para almacenar los usuarios registrados, usando el nombre de usuario como clave
+            private static Map<String, User> users = new HashMap<>();
+
+            public static void main(String[] args) {
+                // Registro de un nuevo usuario
+                registerUser("user123", "password123", "cliente");
+
+                // Verificación de que el usuario se ha registrado correctamente
+                User user = users.get("user123");
+                if (user != null) {
+                    System.out.println("Usuario registrado con éxito:");
+                    System.out.println("Nombre de usuario: " + user.getUserName());
+                    System.out.println("Rol: " + user.getRole());
+                    // Otros detalles del usuario si es necesario
+                } else {
+                    System.out.println("No se pudo registrar el usuario.");
+                }
+            }
+
+            // Método para registrar un nuevo usuario
+            private static void registerUser(String userName, String password, String role) {
+                // Verificar si el nombre de usuario ya existe
+                if (users.containsKey(userName)) {
+                    System.out.println("El nombre de usuario ya está en uso. Por favor, elija otro.");
+                } else {
+                    // Crear una nueva instancia de User y agregarla al mapa de usuarios
+                    User newUser = new User(userName, password, role);
+                    users.put(userName, newUser);
+                    System.out.println("Usuario registrado con éxito.");
+                }
+            }
+                 */
+
         //product product1 = new product();
 
         //Asi se agrega producto:
@@ -70,5 +107,6 @@ public class Main {
         for (Product product : provider1Products) {
             System.out.println("- " + product.getName());
         }*/
+
     }
 }

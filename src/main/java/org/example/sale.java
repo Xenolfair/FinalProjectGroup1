@@ -14,6 +14,7 @@ public class sale {
     private List<product> soldProducts;
     private double totalSaleAmount;
     private Date dateTime;
+    private user client;
 
     public sale(int saleId) {
         this.saleId = saleId;
@@ -36,6 +37,23 @@ public class sale {
     public int getSaleId() {
         return saleId;
     }
+
+    public void setSaleId(int saleId) {
+        this.saleId = saleId;
+    }
+
+    public user getClient() {
+        return client;
+    }
+
+    public void setClient(user client) {
+        this.client = client;
+    }
+
+    public double getAmount() {
+        return totalSaleAmount;
+    }
+
 
     public List<product> getSoldProducts() {
         return soldProducts;
