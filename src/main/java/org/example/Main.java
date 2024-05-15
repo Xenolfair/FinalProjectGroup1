@@ -51,5 +51,24 @@ public class Main {
         for (Map.Entry<String, Integer> entry : historialTransacciones.entrySet()) {
             System.out.println("Tipo de transacción: " + entry.getKey() + ", Puntos: " + entry.getValue());
         }*/
+
+        // Crear un proveedor
+        //Provider provider1 = new Provider("ElectroPro", "contacto@electropro.com");
+
+        // Crear un producto y asociarlo al proveedor
+        /*Product product1 = new Product(1, "Laptop", "Portátil de alta gama", 1500.0, 10);
+        product1.setProvider(provider1);
+        provider1.addProduct(product1);*/
+
+        // Obtener el proveedor de un producto
+        /*Provider product1Provider = product1.getProvider();
+        System.out.println("El proveedor del producto es: " + product1Provider.getName());*/
+
+        // Obtener los productos asociados a un proveedor
+        /*List<Product> provider1Products = provider1.getProducts();
+        System.out.println("Productos asociados al proveedor: " + provider1.getName());
+        for (Product product : provider1Products) {
+            System.out.println("- " + product.getName());
+        }*/
     }
 }

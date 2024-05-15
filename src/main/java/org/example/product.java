@@ -14,6 +14,7 @@ private int id;
     private String description;
     private double price;
     private int stockQuantity;
+    private provider provider;
     private Map<String, Double> promotions; // Mapa de promociones por nombre de promoción y descuento
 
     public product(int id, String name, String description, double price, int stockQuantity) {
@@ -63,6 +64,14 @@ private int id;
 
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+    public provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(provider provider) {
+        this.provider = provider;
     }
 
     public void updateStock(int quantity) {
