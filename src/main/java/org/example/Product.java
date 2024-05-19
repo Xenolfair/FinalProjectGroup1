@@ -2,6 +2,9 @@ package org.example;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Product {
 /*
@@ -9,13 +12,14 @@ public class Product {
     Métodos: getters y setters para los atributos, método para actualizar la cantidad en
     stock.
 */
-private int id;
+    private int id;
     private String name;
     private String description;
     private double price;
     private int stockQuantity;
     private Provider provider;
-    private Map<String, Double> promotions; // Mapa de promociones por nombre de promoción y descuento
+    private Map<String, Double> promotions;
+    public static List<Product> productList = new ArrayList<>();
 
     public Product(int id, String name, String description, double price, int stockQuantity) {
         this.id = id;
@@ -26,12 +30,32 @@ private int id;
         this.promotions = new HashMap<>();
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "ID: " + id + ", Name: " + name + ", Description: " + description + ", Price: " + price + ", Stock Quantity: " + stockQuantity;
     }
 
-    public void setId(int id) {
-        this.id = id;
+
+    public static Product findProductById(int id) {
+        for (Product product : productList) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public static Product findProductByName(String name) {
+        for (Product product : productList) {
+            if (product.getName().equalsIgnoreCase(name)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -40,10 +64,6 @@ private int id;
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public void setDescription(String description) {
@@ -58,12 +78,18 @@ private int id;
         this.price = price;
     }
 
-    public int getStockQuantity() {
-        return stockQuantity;
-    }
-
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+    public boolean hasStock() {
+        return stockQuantity > 0;
+    }
+
+    public void decrementStock() {
+        if (stockQuantity > 0) {
+            stockQuantity--;
+        }
     }
 
     public Provider getProvider() {

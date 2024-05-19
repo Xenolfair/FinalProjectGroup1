@@ -6,118 +6,38 @@ import java.util.Scanner;
 
 public class AdminMenu {
     public static void showMenuAdmin( User user, Scanner scanner) {
-        /*boolean leave = false;
+        boolean leave = false;
 
         while (!leave) {
             System.out.println("\n--> Options: ");
-            System.out.println("\n          1. Add New Book");
-            System.out.println("\n          2. Search Book by Title");
-            System.out.println("\n          3. Search Book by Author");
-            System.out.println("\n          4. Show Inventory");
-            System.out.println("\n          5. Make Loan");
-            System.out.println("\n          6. Return Borrowed Book");
-            System.out.println("\n          7. View user data");
-            System.out.println("\n          8. Modify credentials of registered users");
-            System.out.println("\n          9. exit");
+            System.out.println("          1. Product management");
+            System.out.println("          2. Generate Inventory Report");
+            System.out.println("          3. Generate Sales Report");
+            System.out.println("          4. Manage user roles");
+            System.out.println("          5. Sales Management");
+            System.out.println("          6. Provider Management");
+            System.out.println("          9. exit");
             System.out.print("\n --> Choose an option: ");
 
             int userElection = scanner.nextInt();
             switch(userElection){
                 case 1:
-                    library.addBook();
+                    productManagementMenu();
                     break;
                 case 2:
-                    scanner.nextLine();
-                    System.out.println("Enter the name of the title to search for: ");
-                    String title = scanner.nextLine();
-
-                    library.searchBookByTitle(title, scanner);
+                    Report.generateInventoryReport();
                     break;
                 case 3:
-                    scanner.nextLine();
-                    System.out.println("Enter the author's name: ");
-                    String author = scanner.nextLine();
-
-                    library.searchBookByAuthor(author, scanner);
+                    Report.generateSalesReport();
                     break;
                 case 4:
-                    library.showInventory();
+                    User.manageUsers(scanner);
                     break;
                 case 5:
-                    scanner.nextLine();
-                    System.out.println("Enter the name of the title to lend: ");
-                    String titleLoan = scanner.nextLine();
-
-                    System.out.println("Enter the estimated number of days to return: ");
-                    int daysDear = scanner.nextInt();
-
-                    scanner.nextLine();
-                    LocalDate dateDevolution = LocalDate.now().plusDays(daysDear);
-                    System.out.println("The estimated return date is: " + dateDevolution.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                    library.performLoan(titleLoan, user, LocalDate.now().toString(), dateDevolution.toString());
+                    Sale.manageSales(scanner, Sale.salesList);
                     break;
                 case 6:
-                    scanner.nextLine();
-                    System.out.println("Enter the name of the title to be returned: ");
-                    String titleReturn = scanner.nextLine();
-
-                    System.out.println("Enter the current date (YYYYY-MM-DD): ");
-                    String dateCurrent = scanner.nextLine();
-
-                    while (!Utilities.isValidDate(dateCurrent)) {
-                        System.out.println("Invalid current date. Please enter a valid date (YYYYY-MM-DD): ");
-                        dateCurrent = scanner.nextLine();
-                    }
-
-                    int daysDelay = Utilities.calculateDaysDelay(library.getDateLoan(titleReturn), dateCurrent);
-
-                    if (daysDelay > 0) {
-                        double debt = daysDelay * 1000;
-                        user.setDebt(debt);
-                        System.out.println("The return of the book has been successfully registered. A debt of " + debt + " COP by " + daysDelay + " day(s) late");
-                    } else {
-                        System.out.println("The return of the book has been successfully registered");
-                    }
-
-                    library.returnBook(titleReturn);
-                    break;
-                case 7:
-                    System.out.println("--> Registered Users:");
-                    User.showUsersRegistered();
-                    break;
-                case 8:
-                    if (User.usersRegistered.isEmpty()) {
-                        System.out.println("There are no registered users to modify");
-                    } else {
-                        scanner.nextLine();
-                        System.out.print("Enter the name of the user to be modified: ");
-                        String usernameModify = scanner.nextLine();
-
-                        boolean userFound = false;
-                        for (User userRegistered : User.usersRegistered) {
-                            if (userRegistered.getName().equalsIgnoreCase(usernameModify)) {
-                                System.out.print("Enter the new name for the user: ");
-                                String newName = scanner.nextLine();
-
-                                System.out.print("Enter the new ID for the user: ");
-                                String newIDCard = scanner.nextLine();
-
-                                System.out.print("Enter the new rank for the user (1)User, (2)Admin: ");
-                                int newRank = scanner.nextInt();
-
-                                userRegistered.setName(newName);
-                                userRegistered.setIDCard(newIDCard);
-                                userRegistered.setRank(newRank);
-
-                                System.out.println("User credentials modified correctly");
-                                userFound = true;
-                                break;
-                            }
-                        }
-                        if (!userFound) {
-                            System.out.println("No user with the provided name was found");
-                        }
-                    }
+                    Provider.manageProviders(scanner);
                     break;
                 case 9:
                     System.out.println("See you soon...");
@@ -125,7 +45,122 @@ public class AdminMenu {
                     break;
                 default:
                     System.out.println("Invalid option. Please select a valid option");
+                    break;
             }
-        }*/
+        }
+    }
+
+    public static void productManagementMenu(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Product Management system!");
+        System.out.println("\n--> Options: ");
+        System.out.println("          1. Add new product");
+        System.out.println("          2. Modify an existing product");
+        System.out.println("          3. Delete an existing product");
+        System.out.println("          4. back");
+        System.out.print("\n --> Choose an option: ");
+
+        int userElection2 = scanner.nextInt();
+        switch(userElection2) {
+            case 1:
+                System.out.print("Enter product ID: ");
+                int id = scanner.nextInt();
+                scanner.nextLine();
+
+                System.out.print("Enter product name: ");
+                String name = scanner.nextLine();
+
+                System.out.print("Enter product description: ");
+                String description = scanner.nextLine();
+
+                System.out.print("Enter product price: ");
+                double price = scanner.nextDouble();
+
+                System.out.print("Enter stock quantity: ");
+                int stockQuantity = scanner.nextInt();
+                scanner.nextLine();
+
+                Product product = new Product(id, name, description, price, stockQuantity);
+                Product.productList.add(product);
+                System.out.println("  Product added successfully!");
+
+                break;
+            case 2:
+                System.out.println("--> Search product by:");
+                System.out.println("          1. ID");
+                System.out.println("          2. Name");
+                System.out.print("\n --> Choose an option: ");
+
+                int searchOption = scanner.nextInt();
+                scanner.nextLine();
+
+                Product productToModify = null;
+                if (searchOption == 1) {
+                    System.out.print("Enter product ID to modify: ");
+                    int modifyId = scanner.nextInt();
+                    scanner.nextLine();
+
+                    productToModify = Product.findProductById(modifyId);
+                } else if (searchOption == 2) {
+                    System.out.print("Enter product name to modify: ");
+                    String modifyName = scanner.nextLine();
+
+                    productToModify = Product.findProductByName(modifyName);
+                } else {
+                    System.out.println("Invalid option. Please choose again.");
+                    break;
+                }
+
+                if (productToModify != null) {
+                    System.out.print("Enter new product name (leave blank to keep current): ");
+                    String newName = scanner.nextLine();
+                    if (!newName.isEmpty()) {
+                        productToModify.setName(newName);
+                    }
+
+                    System.out.print("Enter new product description (leave blank to keep current): ");
+                    String newDescription = scanner.nextLine();
+                    if (!newDescription.isEmpty()) {
+                        productToModify.setDescription(newDescription);
+                    }
+
+                    System.out.print("Enter new product price (or 0 to keep current): ");
+                    double newPrice = scanner.nextDouble();
+                    if (newPrice != 0) {
+                        productToModify.setPrice(newPrice);
+                    }
+
+                    System.out.print("Enter new stock quantity (or -1 to keep current): ");
+                    int newStockQuantity = scanner.nextInt();
+                    scanner.nextLine();
+                    if (newStockQuantity != -1) {
+                        productToModify.setStockQuantity(newStockQuantity);
+                    }
+
+                    System.out.println("Product modified successfully!");
+                } else {
+                    System.out.println("Product not found.");
+                }
+                break;
+            case 3:
+                System.out.print("Enter product ID to delete: ");
+                int deleteId = scanner.nextInt();
+                scanner.nextLine();
+
+                Product productToDelete = Product.findProductById(deleteId);
+                if (productToDelete != null) {
+                    Product.productList.remove(productToDelete);
+                    System.out.println("Product deleted successfully!");
+                } else {
+                    System.out.println("Product not found.");
+                }
+                break;
+            case 4:
+                return;
+            default:
+                System.out.println("Invalid option. Please choose again.");
+                break;
+        }
     }
 }

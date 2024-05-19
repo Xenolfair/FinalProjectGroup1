@@ -8,6 +8,7 @@ public class Main {
 
         User userCurrent = null;
         boolean leave = false;
+
         System.out.println("Welcome to the Inventory Management System for a very inefficient Electronics Store!");
         while (!leave) {
             System.out.println("\n--> Menu:");
@@ -24,29 +25,20 @@ public class Main {
                     System.out.print("\nEnter your username: ");
                     String nameUser = scanner.nextLine();
                     System.out.print("Enter your password: ");
-                    String UserID = scanner.nextLine();
+                    String userID = scanner.nextLine();
 
-                    userCurrent = User.login(nameUser, UserID);
+                    userCurrent = User.login(nameUser, userID);
                     if (userCurrent != null) {
                         System.out.println("\nSuccessful login!");
-
-                        //Aquí el menu funcional luego del login
+                        User.showRoleMenu(userCurrent, scanner);
                     } else {
-                        System.out.println("\nIncorrect user name or ID. Please try again");
+                        System.out.println("Login failed. Please check your username and password.");
                     }
                     break;
                 case 2:
                     userCurrent = User.registerUser();
                     if (userCurrent != null) {
-                        if (userCurrent.getRole() == 3) {
-                            AdminMenu.showMenuAdmin(userCurrent, scanner);
-                        } else {
-                            if (userCurrent.getRole() == 2) {
-                                SellerMenu.showMenuSeller(userCurrent, scanner);
-                            } else {
-                                ManagerMenu.showMenuManager(userCurrent, scanner);
-                            }
-                        }
+                        User.showRoleMenu(userCurrent, scanner);
                     }
                     break;
                 case 3:
@@ -55,6 +47,7 @@ public class Main {
                     break;
                 default:
                     System.out.println("\nInvalid option. Please select a valid option from the menu");
+                    break;
             }
         }
     }
