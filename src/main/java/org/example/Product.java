@@ -79,6 +79,7 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
+    public int getStockQuantity() { return stockQuantity; }
 
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
