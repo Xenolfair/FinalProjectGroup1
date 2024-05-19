@@ -16,6 +16,7 @@ public class AdminMenu {
             System.out.println("          4. Manage user roles");
             System.out.println("          5. Sales Management");
             System.out.println("          6. Provider Management");
+            System.out.println("          7. Promotions Management:");
             System.out.println("          9. exit");
             System.out.print("\n --> Choose an option: ");
 
@@ -38,6 +39,9 @@ public class AdminMenu {
                     break;
                 case 6:
                     Provider.manageProviders(scanner);
+                    break;
+                case 7:
+                    Promotion.managePromotions(scanner);
                     break;
                 case 9:
                     System.out.println("See you soon...");

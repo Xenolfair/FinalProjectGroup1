@@ -2,9 +2,9 @@ package org.example;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Product {
 /*
@@ -19,6 +19,7 @@ public class Product {
     private int stockQuantity;
     private Provider provider;
     private Map<String, Double> promotions;
+    private List<Promotion> appliedPromotions;
     public static List<Product> productList = new ArrayList<>();
 
     public Product(int id, String name, String description, double price, int stockQuantity) {
@@ -28,6 +29,7 @@ public class Product {
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.promotions = new HashMap<>();
+        this.appliedPromotions = new ArrayList<>();
     }
 
     @Override
@@ -92,20 +94,8 @@ public class Product {
         }
     }
 
-    public Provider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(Provider provider) {
-        this.provider = provider;
-    }
-
-    public void updateStock(int quantity) {
-        this.stockQuantity += quantity;
-    }
-
-    public void addPromotion(String promotionName, double discount) {
-        promotions.put(promotionName, discount);
+    public void addPromotion(Promotion promotion) {
+        promotions.put(promotion.getName(), promotion.getDiscount());
     }
 
     public boolean removePromotion(String promotionName) {
@@ -118,5 +108,9 @@ public class Product {
 
     public boolean hasPromotion(String promotionName) {
         return promotions.containsKey(promotionName);
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 }
