@@ -2,10 +2,64 @@ package org.example;
 
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        User userCurrent = null;
+        boolean leave = false;
+        System.out.println("Welcome to the Inventory Management System for a very inefficient Electronics Store!");
+        while (!leave) {
+            System.out.println("\n--> Menu:");
+            System.out.println("  1. Login");
+            System.out.println("  2. Register new user");
+            System.out.println("  3. Leave");
+            System.out.print("\n Choose an option: ");
+
+            int optionMenu = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (optionMenu) {
+                case 1:
+                    System.out.print("\nEnter your username: ");
+                    String nameUser = scanner.nextLine();
+                    System.out.print("Enter your password: ");
+                    String UserID = scanner.nextLine();
+
+                    userCurrent = User.login(nameUser, UserID);
+                    if (userCurrent != null) {
+                        System.out.println("\nSuccessful login!");
+
+                        //Aquí el menu funcional luego del login
+                    } else {
+                        System.out.println("\nIncorrect user name or ID. Please try again");
+                    }
+                    break;
+                case 2:
+                    userCurrent = User.registerUser();
+                    if (userCurrent != null) {
+                        if (userCurrent.getRole() == 3) {
+                            AdminMenu.showMenuAdmin(userCurrent, scanner);
+                        } else {
+                            if (userCurrent.getRole() == 2) {
+                                SellerMenu.showMenuSeller(userCurrent, scanner);
+                            } else {
+                                ManagerMenu.showMenuManager(userCurrent, scanner);
+                            }
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.println("\nSee you soon!");
+                    leave = true;
+                    break;
+                default:
+                    System.out.println("\nInvalid option. Please select a valid option from the menu");
+            }
+        }
+    }
+}
+
         /*
         para crear nuevo usuario:
                 // Mapa para almacenar los usuarios registrados, usando el nombre de usuario como clave
@@ -107,6 +161,3 @@ public class Main {
         for (Product product : provider1Products) {
             System.out.println("- " + product.getName());
         }*/
-
-    }
-}

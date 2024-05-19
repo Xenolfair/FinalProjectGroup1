@@ -3,7 +3,7 @@ package org.example;
 import java.util.HashMap;
 import java.util.Map;
 
-public class product {
+public class Product {
 /*
     Atributos: ID, nombre, descripción, precio, cantidad en stock.
     Métodos: getters y setters para los atributos, método para actualizar la cantidad en
@@ -14,10 +14,10 @@ private int id;
     private String description;
     private double price;
     private int stockQuantity;
-    private provider provider;
+    private Provider provider;
     private Map<String, Double> promotions; // Mapa de promociones por nombre de promoción y descuento
 
-    public product(int id, String name, String description, double price, int stockQuantity) {
+    public Product(int id, String name, String description, double price, int stockQuantity) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -66,11 +66,11 @@ private int id;
         this.stockQuantity = stockQuantity;
     }
 
-    public provider getProvider() {
+    public Provider getProvider() {
         return provider;
     }
 
-    public void setProvider(provider provider) {
+    public void setProvider(Provider provider) {
         this.provider = provider;
     }
 

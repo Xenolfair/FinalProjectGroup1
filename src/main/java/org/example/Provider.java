@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class provider {
+public class Provider {
     private String name;
     private String contactInfo;
-    private Map<String, product> products; // Mapa de productos asociados al proveedor
+    private Map<String, Product> products; // Mapa de productos asociados al proveedor
 
-    public provider(String name, String contactInfo) {
+    public Provider(String name, String contactInfo) {
         this.name = name;
         this.contactInfo = contactInfo;
         this.products = new HashMap<>();
@@ -32,7 +32,7 @@ public class provider {
         this.contactInfo = contactInfo;
     }
 
-    public void addProduct(product product) {
+    public void addProduct(Product product) {
         products.put(product.getName(), product);
         product.setProvider(this);
     }
@@ -45,7 +45,7 @@ public class provider {
         return false;
     }
 
-    public List<product> getProducts() {
+    public List<Product> getProducts() {
         return new ArrayList<>(products.values());
     }
 
@@ -53,7 +53,7 @@ public class provider {
         System.out.println("Proveedor: " + name);
         System.out.println("Información de contacto: " + contactInfo);
         System.out.println("Productos asociados:");
-        for (product product : products.values()) {
+        for (Product product : products.values()) {
             System.out.println("- " + product.getName());
         }
     }
