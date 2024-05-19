@@ -50,44 +50,7 @@ public class Sale {
 
             switch (option) {
                 case 1:
-                    System.out.print("Enter Sale ID: ");
-                    int saleId = scanner.nextInt();
-                    scanner.nextLine();
 
-                    System.out.print("Enter Sale Date (YYYY-MM-DD): ");
-                    String dateSale = scanner.nextLine();
-
-                    System.out.print("Enter Sale Time (HH:MM): ");
-                    String timeSale = scanner.nextLine();
-
-                    Sale newSale = new Sale(saleId, dateSale, timeSale);
-
-                    boolean addingProducts = true;
-                    while (addingProducts) {
-                        System.out.print("Enter Product Name to add (or 'done' to finish): ");
-                        String productName = scanner.nextLine();
-
-                        if (productName.equalsIgnoreCase("done")) {
-                            addingProducts = false;
-                        } else {
-                            Product product = Product.findProductByName(productName);
-                            if (product != null) {
-                                if (product.hasStock()) {
-                                    product.decrementStock();
-                                    newSale.addProduct(product);
-                                    System.out.println("Product added to sale!");
-                                } else {
-                                    System.out.println("Product out of stock.");
-                                }
-                            } else {
-                                System.out.println("Product not found.");
-                            }
-                        }
-                    }
-
-                    newSale.calculateTotalSaleAmount();
-                    salesList.add(newSale);
-                    System.out.println("Sale created successfully with total amount: " + newSale.getTotalSaleAmount());
                     break;
                 case 2:
                     back = true;
@@ -104,6 +67,47 @@ public class Sale {
         for (Product product : soldProducts) {
             totalSaleAmount += product.getPrice();
         }
+    }
+
+    public static void performSale(Scanner scanner){
+        System.out.print("Enter Sale ID: ");
+        int saleId = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Enter Sale Date (YYYY-MM-DD): ");
+        String dateSale = scanner.nextLine();
+
+        System.out.print("Enter Sale Time (HH:MM): ");
+        String timeSale = scanner.nextLine();
+
+        Sale newSale = new Sale(saleId, dateSale, timeSale);
+
+        boolean addingProducts = true;
+        while (addingProducts) {
+            System.out.print("Enter Product Name to add (or 'done' to finish): ");
+            String productName = scanner.nextLine();
+
+            if (productName.equalsIgnoreCase("done")) {
+                addingProducts = false;
+            } else {
+                Product product = Product.findProductByName(productName);
+                if (product != null) {
+                    if (product.hasStock()) {
+                        product.decrementStock();
+                        newSale.addProduct(product);
+                        System.out.println("Product added to sale!");
+                    } else {
+                        System.out.println("Product out of stock.");
+                    }
+                } else {
+                    System.out.println("Product not found.");
+                }
+            }
+        }
+
+        newSale.calculateTotalSaleAmount();
+        salesList.add(newSale);
+        System.out.println("Sale created successfully with total amount: " + newSale.getTotalSaleAmount());
     }
 
     public int getSaleId() {
