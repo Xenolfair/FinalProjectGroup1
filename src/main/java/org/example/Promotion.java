@@ -1,6 +1,9 @@
 package org.example;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,16 +24,28 @@ public class Promotion {
         this.discount = discount;
     }
 
+    public boolean isValid(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date start = dateFormat.parse(startDate);
+            Date end = dateFormat.parse(endDate);
+            return date.after(start) && date.before(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public static void managePromotions(Scanner scanner) {
         boolean leave = false;
 
         while (!leave) {
             System.out.println("\n--> Promotion Management:");
-            System.out.println("  1. Create Promotion");
-            System.out.println("  2. Apply Promotion to Product");
-            System.out.println("  3. Remove Promotion from Product");
-            System.out.println("  4. View All Promotions");
-            System.out.println("  5. Back");
+            System.out.println("          1. Create Promotion");
+            System.out.println("          2. Apply Promotion to Product");
+            System.out.println("          3. Remove Promotion from Product");
+            System.out.println("          4. View All Promotions");
+            System.out.println("          5. Back");
             System.out.print("\n --> Choose an option: ");
 
             int promoOption = scanner.nextInt();
@@ -74,38 +89,34 @@ public class Promotion {
 
         System.out.print("Enter discount (%): ");
         double discount = scanner.nextDouble();
-        scanner.nextLine(); // Consumir el salto de línea
+        scanner.nextLine();
 
-        // Crear la promoción y añadirla a la lista
         Promotion promotion = new Promotion(name, startDate, endDate, description, discount);
         addPromotion(promotion);
-        System.out.println("Promotion created successfully!");
+        System.out.println(" * Promotion created successfully!");
     }
 
     public static void applyPromotionToProduct(Scanner scanner) {
         System.out.print("Enter product name to apply promotion: ");
         String productName = scanner.nextLine();
 
-        // Buscar el producto por nombre
         Product product = Product.findProductByName(productName);
         if (product == null) {
-            System.out.println("Product not found.");
+            System.out.println(" * Product not found.");
             return;
         }
 
         System.out.print("Enter promotion name to apply: ");
         String promotionName = scanner.nextLine();
 
-        // Buscar la promoción por nombre
         Promotion promotion = findPromotionByName(promotionName);
         if (promotion == null) {
-            System.out.println("Promotion not found.");
+            System.out.println(" * Promotion not found.");
             return;
         }
 
-        // Aplicar la promoción al producto
         product.addPromotion(promotion);
-        System.out.println("Promotion applied to product successfully!");
+        System.out.println(" * Promotion applied to product successfully!");
     }
 
     public static Promotion findPromotionByName(String promotionName) {
@@ -116,18 +127,17 @@ public class Promotion {
         }
         return null;
     }
+
     public static void removePromotionFromProduct(Scanner scanner) {
         System.out.print("Enter product name to remove promotion: ");
         String productName = scanner.nextLine();
 
-        // Buscar el producto por nombre
         Product product = Product.findProductByName(productName);
         if (product == null) {
             System.out.println("Product not found.");
             return;
         }
 
-        // Verificar si el producto tiene alguna promoción aplicada
         if (product.getPromotions().isEmpty()) {
             System.out.println("Product does not have any promotions applied.");
             return;
@@ -136,7 +146,6 @@ public class Promotion {
         System.out.print("Enter promotion name to remove: ");
         String promotionName = scanner.nextLine();
 
-        // Eliminar la promoción del producto
         if (product.removePromotion(promotionName)) {
             System.out.println("Promotion removed from product successfully!");
         } else {
@@ -156,6 +165,7 @@ public class Promotion {
             }
         }
     }
+
     public static void addPromotion(Promotion promotion) {
         promotions.add(promotion);
     }
@@ -211,6 +221,6 @@ public class Promotion {
                 ", Start Date='" + startDate + '\'' +
                 ", End Date='" + endDate + '\'' +
                 ", Description='" + description + '\'' +
-                ", Discount=" + (discount * 100) + "%";
+                ", Discount=" + discount + "%";
     }
 }

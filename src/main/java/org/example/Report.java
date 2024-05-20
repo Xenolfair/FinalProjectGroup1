@@ -1,29 +1,28 @@
 package org.example;
 
 import java.util.List;
-import java.util.Map;
 
 public class Report {
-    public static void generateInventoryReport() {
-        System.out.println("\nGenerating inventory report...");
-
-        for (Product product : Product.productList) {
-            System.out.println(product);
+    public static void viewInventory() {
+        if (Product.productList.isEmpty()) {
+            System.out.println(" * No inventory available.");
+        } else {
+            System.out.println("--> Current Inventory:");
+            for (Product product : Product.productList) {
+                System.out.println(product);
+            }
         }
-
-        System.out.println("\nInventory report generated successfully!");
     }
 
     public static void generateSalesReport() {
-        if (Sale.salesList.isEmpty()) {
+        List<Sale> sales = Sale.getSales();
+
+        if (sales.isEmpty()) {
             System.out.println("No sales available.");
         } else {
-            for (Sale s : Sale.salesList) {
-                System.out.println(s);
-                System.out.println("Products sold:");
-                for (Product p : s.getSoldProducts()) {
-                    System.out.println(p);
-                }
+            System.out.println("Sales Report:");
+            for (Sale sale : sales) {
+                System.out.println(sale);
             }
         }
     }

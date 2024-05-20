@@ -25,13 +25,14 @@ public class Provider {
 
         while (!back) {
             System.out.println("\n--> Provider Management:");
-            System.out.println("  1. Add New Provider");
-            System.out.println("  2. Modify Provider");
-            System.out.println("  3. Remove Provider");
-            System.out.println("  4. View Providers");
-            System.out.println("  5. Associate Product with Provider");
-            System.out.println("  6. View Products by Provider");
-            System.out.println("  7. Back");
+            System.out.println("          1. Add New Provider");
+            System.out.println("          2. Modify Provider");
+            System.out.println("          3. Remove Provider");
+            System.out.println("          4. View Providers");
+            System.out.println("          5. Associate Product with Provider");
+            System.out.println("          6. View Products by Provider");
+            System.out.println("          7. Edit Product Stock");
+            System.out.println("          8. Back");
             System.out.print("\n Choose an option: ");
 
             int option = scanner.nextInt();
@@ -144,6 +145,31 @@ public class Provider {
                     }
                     break;
                 case 7:
+                    System.out.print("Enter Provider ID: ");
+                    providerId = scanner.nextInt();
+                    scanner.nextLine();
+
+                    provider = findProviderById(providerId);
+                    if (provider != null) {
+                        System.out.print("Enter Product Name to edit stock: ");
+                        String productName = scanner.nextLine();
+
+                        Product product = Product.findProductByName(productName);
+                        if (product != null && provider.getProvidedProducts().contains(product)) {
+                            System.out.print("Enter new stock quantity: ");
+                            int newStockQuantity = scanner.nextInt();
+                            scanner.nextLine();
+
+                            product.setStockQuantity(newStockQuantity);
+                            System.out.println("Product stock updated successfully!");
+                        } else {
+                            System.out.println("Product not found or not associated with this provider.");
+                        }
+                    } else {
+                        System.out.println("Provider not found.");
+                    }
+                    break;
+                case 8:
                     back = true;
                     break;
                 default:

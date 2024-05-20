@@ -1,7 +1,5 @@
 package org.example;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class AdminMenu {
@@ -17,7 +15,7 @@ public class AdminMenu {
             System.out.println("          5. Sales Management");
             System.out.println("          6. Provider Management");
             System.out.println("          7. Promotions Management:");
-            System.out.println("          9. exit");
+            System.out.println("          8. Log out");
             System.out.print("\n --> Choose an option: ");
 
             int userElection = scanner.nextInt();
@@ -26,7 +24,7 @@ public class AdminMenu {
                     productManagementMenu();
                     break;
                 case 2:
-                    Report.generateInventoryReport();
+                    Report.viewInventory();
                     break;
                 case 3:
                     Report.generateSalesReport();
@@ -35,7 +33,7 @@ public class AdminMenu {
                     User.manageUsers(scanner);
                     break;
                 case 5:
-                    Sale.manageSales(scanner, Sale.salesList);
+                    Sale.manageSales(scanner);
                     break;
                 case 6:
                     Provider.manageProviders(scanner);
@@ -43,12 +41,12 @@ public class AdminMenu {
                 case 7:
                     Promotion.managePromotions(scanner);
                     break;
-                case 9:
-                    System.out.println("See you soon...");
+                case 8:
+                    System.out.println(" * See you soon...");
                     leave = true;
                     break;
                 default:
-                    System.out.println("Invalid option. Please select a valid option");
+                    System.out.println(" * Invalid option. Please select a valid option");
                     break;
             }
         }
@@ -62,7 +60,7 @@ public class AdminMenu {
         System.out.println("          1. Add new product");
         System.out.println("          2. Modify an existing product");
         System.out.println("          3. Delete an existing product");
-        System.out.println("          4. back");
+        System.out.println("          4. Back");
         System.out.print("\n --> Choose an option: ");
 
         int userElection2 = scanner.nextInt();
@@ -78,7 +76,7 @@ public class AdminMenu {
                 System.out.print("Enter product description: ");
                 String description = scanner.nextLine();
 
-                System.out.print("Enter product price: ");
+                System.out.print("Enter product price: $");
                 double price = scanner.nextDouble();
 
                 System.out.print("Enter stock quantity: ");
@@ -87,7 +85,7 @@ public class AdminMenu {
 
                 Product product = new Product(id, name, description, price, stockQuantity);
                 Product.productList.add(product);
-                System.out.println("  Product added successfully!");
+                System.out.println(" * Product added successfully!");
 
                 break;
             case 2:
@@ -112,7 +110,7 @@ public class AdminMenu {
 
                     productToModify = Product.findProductByName(modifyName);
                 } else {
-                    System.out.println("Invalid option. Please choose again.");
+                    System.out.println(" * Invalid option. Please choose again.");
                     break;
                 }
 
@@ -142,9 +140,9 @@ public class AdminMenu {
                         productToModify.setStockQuantity(newStockQuantity);
                     }
 
-                    System.out.println("Product modified successfully!");
+                    System.out.println(" * Product modified successfully!");
                 } else {
-                    System.out.println("Product not found.");
+                    System.out.println(" * Product not found.");
                 }
                 break;
             case 3:
@@ -155,15 +153,15 @@ public class AdminMenu {
                 Product productToDelete = Product.findProductById(deleteId);
                 if (productToDelete != null) {
                     Product.productList.remove(productToDelete);
-                    System.out.println("Product deleted successfully!");
+                    System.out.println(" * Product deleted successfully!");
                 } else {
-                    System.out.println("Product not found.");
+                    System.out.println(" * Product not found.");
                 }
                 break;
             case 4:
                 return;
             default:
-                System.out.println("Invalid option. Please choose again.");
+                System.out.println(" * Invalid option. Please choose again.");
                 break;
         }
     }

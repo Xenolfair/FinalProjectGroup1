@@ -1,24 +1,19 @@
 package org.example;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Date;
 
 public class Product {
-/*
-    Atributos: ID, nombre, descripción, precio, cantidad en stock.
-    Métodos: getters y setters para los atributos, método para actualizar la cantidad en
-    stock.
-*/
     private int id;
     private String name;
     private String description;
     private double price;
     private int stockQuantity;
     private Provider provider;
-    private Map<String, Double> promotions;
+    private Map<String, Promotion> promotions;
     private List<Promotion> appliedPromotions;
     public static List<Product> productList = new ArrayList<>();
 
@@ -36,7 +31,6 @@ public class Product {
     public String toString() {
         return "ID: " + id + ", Name: " + name + ", Description: " + description + ", Price: " + price + ", Stock Quantity: " + stockQuantity;
     }
-
 
     public static Product findProductById(int id) {
         for (Product product : productList) {
@@ -79,7 +73,10 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
-    public int getStockQuantity() { return stockQuantity; }
+
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
 
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
@@ -89,21 +86,25 @@ public class Product {
         return stockQuantity > 0;
     }
 
-    public void decrementStock() {
-        if (stockQuantity > 0) {
-            stockQuantity--;
+    public void decrementStock(int quantity) {
+        if (stockQuantity >= quantity) {
+            stockQuantity -= quantity;
         }
     }
 
+    public List<Promotion> getAppliedPromotions() {
+        return appliedPromotions;
+    }
+
     public void addPromotion(Promotion promotion) {
-        promotions.put(promotion.getName(), promotion.getDiscount());
+        promotions.put(promotion.getName(), promotion);
     }
 
     public boolean removePromotion(String promotionName) {
         return promotions.remove(promotionName) != null;
     }
 
-    public Map<String, Double> getPromotions() {
+    public Map<String, Promotion> getPromotions() {
         return promotions;
     }
 
@@ -113,5 +114,22 @@ public class Product {
 
     public void setProvider(Provider provider) {
         this.provider = provider;
+    }
+
+    public void purchase(int quantity, String username, Date purchaseDate) {
+        if (hasStock() && stockQuantity >= quantity) {
+            double finalPrice = price;
+            for (Promotion promotion : promotions.values()) {
+                if (promotion.isValid(purchaseDate)) {
+                    finalPrice -= finalPrice * (promotion.getDiscount() / 100);
+                }
+            }
+
+            decrementStock(quantity);
+            double totalPrice = finalPrice * quantity;
+            System.out.println("User " + username + " purchased " + quantity + " units of " + name + " on " + purchaseDate + " at " + finalPrice + " per unit. Total: " + totalPrice);
+        } else {
+            System.out.println("Insufficient stock for the purchase.");
+        }
     }
 }

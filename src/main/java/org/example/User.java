@@ -79,9 +79,9 @@ public class User {
         if (user.getRole() == 3) {
             AdminMenu.showMenuAdmin(user, scanner);
         } else if (user.getRole() == 2) {
-            SellerMenu.showMenuSeller(user, scanner);
-        } else if (user.getRole() == 1) {
             ManagerMenu.showMenuManager(user, scanner);
+        } else if (user.getRole() == 1) {
+            SellerMenu.showMenuSeller(user, scanner);
         } else {
             System.out.println(user.getRole());
             System.out.println("Invalid user role.");
