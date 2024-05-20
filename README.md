@@ -1,4 +1,4 @@
-# ¡Inventory Management System for a very inefficient Electronics CIAF Store! (IMSIECS)
+# ¡Inventory Management System for a very inefficient Electronics CIAF Store! (IMSIECS) 📈📉
 
 ## Description
 IMSIECS is a comprehensive inventory management system designed for electronics stores. It streamlines the process of sales, inventory tracking, and user management. Built with Java, IMSIES offers a robust platform for administrators, salespersons, and managers to perform their roles efficiently.
@@ -29,7 +29,7 @@ When starting IMSIECS, log in with the credentials provided. Navigate through th
 IMSIECS is released under the MIT License. See the `LICENSE` file for more details.
 
 ## Contact us
-For support or inquiries, please contact santiago.ramirez@ciaf.edu.co, our representative.
+For support or inquiries, please contact santiago.ramirez@ciaf.edu.co, our representative. 😎
 
 ## Acknowledgements
 Special thanks to all the contributors and testers who have helped in the development of IMSIECS, Samuel Andrade and Miguel Ballesteros.
